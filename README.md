@@ -97,7 +97,7 @@ hamgf-api --neo4j
 
 These examples enable separate options rather than one combined deployment. Authentication requires `HAMGF_API_TOKEN`; encryption requires `HAMGF_SNAPSHOT_KEY`; Neo4j requires its URI, username, password, and a dedicated non-production namespace. See [deployment](docs/deployment.md) for combined configuration and Compose.
 
-AES-GCM protects configured snapshots, raw inputs, logs, Neo4j disk, and transport are not included. Enterprise ingestion redacts supported contact-like strings in message bodies. Security labels are descriptive, not an authorization system. Inspect any data before allowing external model/embedding egress.
+Enterprise ingestion redacts supported contact-like strings in message bodies. Security labels are descriptive, not an authorization system. Inspect any data before allowing external model/embedding egress.
 
 ## Evaluation: fixed readers, different memory strategies
 
@@ -163,4 +163,3 @@ Use `python -m tests --help` to select other test modules and output locations.
 - [Deployment and operations](docs/deployment.md)
 - [Evaluation](docs/evaluation-and-validation.md)
 - [Memory baselines](docs/memory-baselines.md)
-No project license is currently included.
