@@ -1,0 +1,9 @@
+# Official packages; separate from the lightweight HAMGF core.
+mem0ai==2.0.14
+graphiti-core==0.30.1
+memobase==0.0.27
+openai==1.109.1
+spacy==3.8.16
+fastembed==0.8.0
+tiktoken==0.14.0
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl

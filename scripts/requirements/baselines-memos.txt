@@ -1,0 +1,7 @@
+# MemTensor/MemOS (NOT BAI-LAB/MemoryOS); isolated because it requires transformers<5.
+MemoryOS[tree-mem,mem-reader]==2.0.33
+openai==1.109.1
+rank-bm25==0.2.2
+jieba==0.42.1
+qdrant-client==1.19.0
+tiktoken==0.14.0

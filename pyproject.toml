@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hamgf"
+version = "0.4.0"
+description = "Hierarchical Agent Memory Graph Framework"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["networkx>=3.2,<4"]
+
+[project.optional-dependencies]
+persistence = [
+    "neo4j>=5.26,<6",
+]
+security = [
+    "cryptography>=42,<50",
+]
+benchmark = [
+    "datasets>=3,<5",
+    "huggingface-hub>=0.28,<2",
+    "matplotlib>=3.8,<4",
+    "openai==1.109.1",
+    "tiktoken==0.14.0",
+    "transformers>=5,<6",
+]
+
+[project.scripts]
+hamgf-api = "hamgf.api.server:main"
+hamgf-chat = "hamgf.chat:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

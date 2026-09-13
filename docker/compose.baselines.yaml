@@ -1,0 +1,22 @@
+# Optional baseline database only; NOT completion of Phase 4 application deployment.
+services:
+  baseline-neo4j:
+    image: neo4j:5.26.30-community
+    ports:
+      - "127.0.0.1:17474:7474"
+      - "127.0.0.1:17687:7687"
+    environment:
+      NEO4J_AUTH: "neo4j/${HAMGF_BASELINE_NEO4J_PASSWORD:?Set a benchmark-only password}"
+      NEO4J_server_memory_heap_initial__size: 512m
+      NEO4J_server_memory_heap_max__size: 1g
+      NEO4J_server_memory_pagecache_size: 512m
+      NEO4J_dbms_usage__report_enabled: "false"
+    volumes:
+      - baseline-neo4j-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+volumes:
+  baseline-neo4j-data:

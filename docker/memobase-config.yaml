@@ -1,0 +1,14 @@
+# MemoBase server v0.0.42 static benchmark settings.
+# Secrets and endpoint overrides are injected by compose environment variables.
+language: en
+llm_style: openai
+best_llm_model: deepseek-v4-flash
+thinking_llm_model: deepseek-v4-flash
+summary_llm_model: deepseek-v4-flash
+enable_event_embedding: true
+embedding_provider: openai
+embedding_model: text-embedding-3-small
+embedding_dim: 1536
+profile_validate_mode: true
+profile_strict_mode: false
+telemetry_deployment_environment: local

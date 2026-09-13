@@ -1,0 +1,10 @@
+.baseline-runtime
+.venv-baselines
+.git
+backups
+data
+frontend/node_modules
+frontend/dist
+tests/sol
+**/__pycache__
+*.pyc

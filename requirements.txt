@@ -1,0 +1,10 @@
+# HAMGF complete in-process research environment.
+#
+# The dependency ranges live in pyproject.toml so `pip install -r requirements.txt`
+# and `pip install -e '.[benchmark,persistence,security]'` stay identical.
+-e .[benchmark,persistence,security]
+
+# Native Mem0, Graphiti, MemOS, and MemoBase are excluded here because their
+# dependency constraints conflict. Install their pinned, isolated environments with:
+#   python scripts/setup_memory_baselines.py
+# See scripts/requirements/baselines-common.txt and baselines-memos.txt.

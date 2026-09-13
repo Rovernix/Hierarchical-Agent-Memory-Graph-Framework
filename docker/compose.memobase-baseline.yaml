@@ -1,0 +1,77 @@
+# Baseline service definition; verify it on the deployment host before use.
+# Mirrors memodb-io/memobase server v0.0.42 with loopback-only ports.
+name: hamgf-memobase-baseline
+services:
+  database:
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: memobase
+      POSTGRES_PASSWORD: ${MEMOBASE_DB_PASSWORD:?set MEMOBASE_DB_PASSWORD}
+      POSTGRES_DB: memobase
+    ports:
+      - "127.0.0.1:15432:5432"
+    volumes:
+      - memobase-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U memobase -d memobase"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7.4
+    restart: unless-stopped
+    command: ["redis-server", "--requirepass", "${MEMOBASE_REDIS_PASSWORD:?set MEMOBASE_REDIS_PASSWORD}"]
+    ports:
+      - "127.0.0.1:16379:6379"
+    volumes:
+      - memobase-redis:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$$${MEMOBASE_REDIS_PASSWORD}\" ping | grep PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    environment:
+      MEMOBASE_REDIS_PASSWORD: ${MEMOBASE_REDIS_PASSWORD:?set MEMOBASE_REDIS_PASSWORD}
+
+  api:
+    image: ghcr.io/memodb-io/memobase:0.0.42
+    platform: linux/amd64
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://memobase:${MEMOBASE_DB_PASSWORD}@database:5432/memobase
+      REDIS_URL: redis://:${MEMOBASE_REDIS_PASSWORD}@redis:6379/0
+      ACCESS_TOKEN: ${MEMOBASE_ACCESS_TOKEN:?set MEMOBASE_ACCESS_TOKEN}
+      PROJECT_ID: ${MEMOBASE_PROJECT_ID:-hamgf_prefeval}
+      API_HOSTS: http://127.0.0.1:18019,http://localhost:18019
+      USE_CORS: "false"
+      MEMOBASE_LLM_STYLE: openai
+      MEMOBASE_LLM_BASE_URL: https://api.deepseek.com/v1
+      MEMOBASE_LLM_API_KEY: ${DEEPSEEK_API_KEY:?set DEEPSEEK_API_KEY}
+      MEMOBASE_BEST_LLM_MODEL: deepseek-v4-flash
+      MEMOBASE_THINKING_LLM_MODEL: deepseek-v4-flash
+      MEMOBASE_SUMMARY_LLM_MODEL: deepseek-v4-flash
+      MEMOBASE_EMBEDDING_PROVIDER: openai
+      MEMOBASE_EMBEDDING_BASE_URL: https://api.openai.com/v1
+      MEMOBASE_EMBEDDING_API_KEY: ${OPENAI_API_KEY:?set OPENAI_API_KEY}
+      MEMOBASE_EMBEDDING_MODEL: text-embedding-3-small
+      MEMOBASE_EMBEDDING_DIM: "1536"
+    ports:
+      - "127.0.0.1:18019:8000"
+    volumes:
+      - ./memobase-config.yaml:/app/config.yaml:ro
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import urllib.request; urllib.request.urlopen(\"http://127.0.0.1:8000/api/v1/healthcheck\")'"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+volumes:
+  memobase-postgres:
+  memobase-redis:

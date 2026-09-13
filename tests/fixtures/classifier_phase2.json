@@ -1,0 +1,30 @@
+[
+  {"content": "客户确认今天发布新版本", "pool": "working"},
+  {"content": "本周必须完成预算决策", "pool": "working"},
+  {"content": "现在处理核心风险", "pool": "working"},
+  {"content": "立即执行已确认的客户方案", "pool": "working"},
+  {"content": "current critical customer decision", "pool": "working"},
+  {"content": "项目状态更新", "pool": "working", "metadata": {"priority": "high", "active": true}},
+
+  {"content": "企业核心财务规则长期有效", "pool": "episodic"},
+  {"content": "customer historical profile and preferences", "pool": "episodic"},
+  {"content": "预算决策依据需要长期保存", "pool": "episodic"},
+  {"content": "风险处理政策适用于所有项目", "pool": "episodic"},
+  {"content": "必须遵循的数据保留规则", "pool": "episodic"},
+  {"content": "长期知识条目", "pool": "episodic", "metadata": {"priority": "critical"}},
+
+  {"content": "今天同步午餐地点", "pool": "buffer"},
+  {"content": "临时记录网络波动", "pool": "buffer"},
+  {"content": "本周安排普通例会", "pool": "buffer"},
+  {"content": "现在天气有些变化", "pool": "buffer"},
+  {"content": "立即回复闲聊消息", "pool": "buffer"},
+  {"content": "普通待办条目", "pool": "buffer", "metadata": {"deadline": "2026-09-02"}},
+
+  {"content": "谢谢你的帮助", "pool": "archive"},
+  {"content": "早上好", "pool": "archive"},
+  {"content": "收到啦", "pool": "archive"},
+  {"content": "随手记一条无关想法", "pool": "archive"},
+  {"content": "周末过得怎么样", "pool": "archive"},
+  {"content": "普通历史备注", "pool": "archive", "metadata": {"priority": "normal"}}
+]
+

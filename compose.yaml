@@ -1,0 +1,71 @@
+services:
+  neo4j:
+    image: neo4j:5.26.30-community
+    environment:
+      NEO4J_AUTH: "neo4j/${HAMGF_NEO4J_PASSWORD:-hamgf-local-dev-password}"
+      NEO4J_server_memory_heap_initial__size: 512m
+      NEO4J_server_memory_heap_max__size: 1g
+      NEO4J_server_memory_pagecache_size: 512m
+      NEO4J_dbms_usage__report_enabled: "false"
+    volumes:
+      - hamgf-neo4j-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 18
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/api.Dockerfile
+    command:
+      - hamgf-api
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8000"
+      - --cors-origin
+      - http://localhost:8080
+      - --snapshot
+      - /data/cmg.enc
+      - --neo4j
+      - --encrypted-snapshot
+    environment:
+      HAMGF_NEO4J_URI: bolt://neo4j:7687
+      HAMGF_NEO4J_USER: neo4j
+      HAMGF_NEO4J_PASSWORD: "${HAMGF_NEO4J_PASSWORD:-hamgf-local-dev-password}"
+      HAMGF_NEO4J_DATABASE: neo4j
+      HAMGF_NEO4J_NAMESPACE: application
+      HAMGF_SNAPSHOT_KEY: "${HAMGF_SNAPSHOT_KEY:?set HAMGF_SNAPSHOT_KEY to a base64 AES-256 key}"
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - hamgf-snapshots:/data
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+      args:
+        VITE_HAMGF_API_URL: http://localhost:8000
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  hamgf-neo4j-data:
+  hamgf-snapshots:

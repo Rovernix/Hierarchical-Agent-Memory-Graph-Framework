@@ -1,0 +1,3 @@
+language: en
+profile_validate_mode: true
+profile_strict_mode: false
