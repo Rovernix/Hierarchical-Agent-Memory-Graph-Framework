@@ -1,28 +1,24 @@
-# HAMGF CMG Visualizer
+# HAMGF Studio frontend
 
-React + Cytoscape 的 Chain-of-Memory Graph 可视化 Demo 与可嵌入插件。
+此目录现在是 HAMGF Studio 的浏览器版本
 
-从项目根目录安装 Python 包并在另一个终端启动 API：
+## 本机启动
 
-~~~bash
-python -m pip install -e .
-hamgf-api --demo
-~~~
+需要 Node.js 22.12+、Python 3.10+ 和原 HAMGF 的 `networkx` 依赖。在本目录执行：
 
-以下命令在 frontend/ 目录执行。Vite 不会自动启动 Python API。
-
-```bash
+```powershell
+python -m pip install -e ..
 npm ci
+npm run build
+npm start
+```
+
+`npm start` 使用构建生成的 `dist`，自动启动本地服务并打开浏览器。首次启动及修改界面后先执行 `npm run build`；仓库不提交构建产物。仅启动服务而不打开浏览器可用 `npm start -- --no-browser`。默认端口为 8765，可追加 `--port `
+
+开发模式：
+
+```powershell
 npm run dev
 ```
 
-默认连接 `http://127.0.0.1:8000`；可通过`VITE_HAMGF_API_URL` 指定地址。API 不可用时页面使用标准 CMG 演示图，并明确标记为“演示数据”。
-
-```bash
-npm test       # 图转换、分叉/回溯、修正链逻辑
-npm run build  # 同时构建 dist/ Demo 与 dist-plugin/ 插件
-```
-
-插件源码入口是 `src/plugin/index.js`，导出 `CmgMemoryPlugin`、REST 客户端和无 UI 的图转换工具。
-
-请不要把长期凭据写进 Vite 环境变量并发布给浏览器（ye）。完整接入见[可视化文档](../docs/visualization-and-integration.md)。
+首次使用在设置中填写 DeepSeek API Key。密钥保存在本地服务的数据目录；Windows 使用当前账户的 DPAPI 保护。聊天、逻辑记忆图谱和可选的 LLM 关系复核均使用新版 Studio 服务。

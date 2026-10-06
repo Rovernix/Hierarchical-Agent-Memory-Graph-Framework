@@ -1,0 +1,23 @@
+{
+  "version": "1.4.0",
+  "source": "../desk",
+  "source_sha256": {
+    "src/api.js": "68866ec325da3524de19e2ff3fdef7e0293d6e95d534d52c6b0b7880b6b8d320",
+    "src/graphTransforms.js": "50c48594827cbd260cfca71405172d4ac783491ae9caa8b0b00cdca753a9e1d6",
+    "src/Icons.jsx": "31cb65179be38553a60739da48bbdd50ff9ec22968030d17d9dcf624564dfe7a",
+    "src/main.jsx": "2b1f246c22c2bb3a5225faeb86293c7b7f54206df82d7a3620eeeaef2d7d3aa6",
+    "src/memory-graph.css": "d4e63b1bffe8e32ca718190e33c6f18614189377aa048415a53e2b56a7045339",
+    "src/MemoryGraph.jsx": "831f6495e32ee02281512edc5efaf4d181d496b2c7b6a0d39f86640f539917df",
+    "src/Settings.jsx": "38b137c7a6d5e2861b4bf1880322b61d303af13ad2bc73d9725a455d20eca828",
+    "src/studio.css": "b68e9a47b003a49e21da13681cdb81d31598328a7a893cefff664106340cd6e9",
+    "src/StudioApp.jsx": "5fad6f71f0c83b9c7ba4ac50d366c54febc753b8ea6c472f7c0f10989f67d6eb",
+    "test/graphTransforms.test.js": "eb807396c6e6d379a9b570d864b7160e420bf6045cc2e46d8d1d1a5fef326f39",
+    "test/sse.test.js": "2b040ba184fc856d5d96ba7e8d2b78c37d39e7f36ddff65a9f9b0cc6ebe52caa",
+    "backend/extraction.py": "6bb9ab8607c81687d5b58b2b0c62abb92dee9a5de66cf701a905a7c6e319ad0e",
+    "backend/logical_memory.py": "9457fac89619bab6fca8b0538bb6cfde24aacdf9913767b8f31e7f508765558d",
+    "backend/relations.py": "d343299fa628e78df21e272170ec8443d001e65513c3d8216163582d2b27a945",
+    "backend/relation_review.py": "77845f1e4f365740cfe43b2bd324803a77cf682efa62175f871c5c1177db1600",
+    "backend/studio.py": "1613af2041f75c022d0cc179df410155d5d85e46315655761a9d5076a5b5de7e",
+    "backend/__init__.py": "ed7a5c7cff0c9b44e867ac5289ae25d5e654915dde1b83bf3c3ed18ae67f13cc"
+  }
+}
