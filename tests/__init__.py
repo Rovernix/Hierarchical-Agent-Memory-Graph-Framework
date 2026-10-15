@@ -1,2 +1,0 @@
-"""HAMGF test suite."""
-
